@@ -20,4 +20,7 @@ run the grunt tasks with:
 ```
 grunt
 ```
-
+for compiling coffee to js run:
+```
+grunt coffee
+```
