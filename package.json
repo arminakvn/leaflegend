@@ -1,0 +1,24 @@
+{
+  "name": "leaflegend",
+  "version": "0.0.0",
+  "main": "dist/leaflegend.min.js",
+  "description": "interactive legend for leafletjs supporting bivariate choropleth maps",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/arminakvn/leaflegend.git"
+  },
+  "keywords": [],
+  "author": "Armin Akhavan",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-coffee": "^0.12.0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-jshint": "~0.6.4",
+    "grunt-contrib-qunit": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.4",
+    "grunt-contrib-watch": "~0.5.3"
+  }
+}
