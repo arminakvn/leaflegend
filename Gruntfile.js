@@ -3,16 +3,24 @@ module.exports = function(grunt) {
   grunt.initConfig({
 
     pkg: grunt.file.readJSON('package.json'),
-	coffee: {
-	    compile: {
-	      expand: true,
-	      flatten: true,
-	      cwd: __dirname + "/src/",
-	      src: ['*.coffee'],
-	      dest: 'src/',
-	      ext: '.js'
-	    }
-	},
+  	coffee: {
+  	    compile: {
+  	      expand: true,
+  	      flatten: true,
+  	      cwd: __dirname + "/demo/assets/",
+  	      src: ['demo.coffee'],
+  	      dest: 'demo/assets/',
+  	      ext: '.js'
+  	    },
+        compileDemo: {
+          expand: true,
+          flatten: true,
+          cwd: __dirname + "/src/",
+          src: ['main.coffee'],
+          dest: 'src/',
+          ext: '.js'
+        }
+  	},
     concat: {
       options: {
         separator: "\n\n"
@@ -36,7 +44,6 @@ module.exports = function(grunt) {
         }
       }
     },
-
     qunit: {
       files: ['test/*.html']
     },
@@ -54,13 +61,13 @@ module.exports = function(grunt) {
     },
 
     watch: {
-	  coffee: {
-	      files: 'src/leaflegend.coffee',
-	      tasks: ['coffee:compile']
-	  },
-      files: ['<%= jshint.files %>'],
-      tasks: ['concat', 'jshint', 'qunit']
-    }
+  	  coffee: {
+  	      files: ['demo/assets/*.coffee','src/*.coffee'],
+  	      tasks: ['coffee:compile', 'coffee:compileDemo']
+  	  },
+        files: ['<%= jshint.files %>'],
+        tasks: ['concat', 'jshint', 'qunit']
+      }
 
   });
 

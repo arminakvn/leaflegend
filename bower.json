@@ -8,5 +8,15 @@
     "bower_components",
     "test"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "leaflet": "~0.7.3",
+    "chroma-js": "~0.6.1",
+    "jquery": "~2.1.3",
+    "mapbox.js": "~2.1.5"
+  },
+  "devDependencies": {
+    "jquery": "~2.1.3",
+    "leaflet": "~0.7.3",
+    "chroma-js": "~0.6.1"
+  }
 }

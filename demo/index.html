@@ -2,6 +2,11 @@
 <html>
   <head>
     <title>leaflegend demo</title>
+    <script src="../bower_components/chroma-js/chroma.js"></script>
+  <script src="../bower_components/jquery/dist/jquery.js"></script>
+  <script src="../bower_components/mapbox.js/mapbox.js"></script>
+  <script src="./assets/us-states.js"></script>
+  <link rel="stylesheet" href="../bower_components/mapbox.js/mapbox.css" />
     <link rel="stylesheet" href="./assets/normalize.css" />
     <link rel="stylesheet" href="./assets/main.css" />
     <style>
@@ -12,6 +17,7 @@
   </head>
   <body>
     <h1>leaflegend demo</h1>
+    <div id="map"></div>
 
     <!-- begin demo markup -->
 
@@ -22,12 +28,11 @@
     <p>Copyright 2015 Armin Akhavan</p>
 
     <script src="./../dist/leaflegend.js"></script>
+    <script src="./assets/us-states.js"></script>
+    <script src="./assets/demo.js"></script>
+    <link rel="stylesheet" href="./assets/main.css" />
 
-    <script>
-      /* begin demo script */
 
-      var n = leaflegend();
-      console.log(n);
 
       /* end demo script */
     </script>
