@@ -42,11 +42,14 @@ run the grunt tasks with:
 ```
 grunt
 ```
-for compiling coffee to js run:
+for just compiling coffee to js run:
 ```
 grunt coffee
 ```
-
+for watching the coffee files for automatic compiling use:
+```
+grunt watch
+```
 
 
 ## Documentation
