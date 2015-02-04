@@ -6,7 +6,7 @@ interactive legend for leafletjs supporting bivariate choropleth maps
 
 A JavaScript library by **_320ryder_**.
 
-See the [project homepage](http://arminakvn.github.io/leaflegend).
+See the [project homepage](http://arminakvn.github.io/leaflegend/demo/index.html).
 
 ## setting up for development
 
