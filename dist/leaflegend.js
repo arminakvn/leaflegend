@@ -288,7 +288,7 @@
       return this;
     },
     getLegendHTML: function(map) {
-      var col, colum_from, div, from, gdrow, gridwidth, i, increment_in_em, j, legend, legendObject, legendRowObject, legend_el, textControl, to, xintervalSize, xmin, xsize, yintervalSize, ymin, ysize, _i, _j, _k;
+      var cell_width, col, colum_from, div, from, gdrow, gridwidth, i, increment_in_em, j, label1_color_option, label1_position_option, label1_rotate_option, label2_color_option, label2_position_option, label2_rotate_option, legend, legendObject, legendRowObject, legend_el, textControl, to, xintervalSize, xmin, xsize, yintervalSize, ymin, ysize, _i, _j, _k;
       this.map = map;
       this._m = map;
       xmin = this.options.xmin;
@@ -303,28 +303,35 @@
       legendObject = [];
       legendRowObject = [];
       this._legendObject = [];
+      cell_width = this.options.cell_width;
+      label1_rotate_option = 0;
+      label1_position_option = this.options.steps * this.options.cell_width / 10.5;
+      label1_color_option = "blue";
+      label2_rotate_option = -90;
+      label2_position_option = this.options.steps * this.options.cell_width / 19;
+      label2_color_option = "red";
       from = void 0;
       to = void 0;
       i = 0;
       increment_in_em = 3.5;
-      legendObject.push("<span style=\"height:" + this.options.cell_width + "px;\">" + "<div style=\"width:" + (2 * this.options.cell_width) + "px; position: relative; height: 0; text-align: left; font-weight: bold;" + ("  -webkit-transform: translate(" + (1 * increment_in_em - 6 - increment_in_em) + "em,-7em); -moz-transform: translate(" + (1 * increment_in_em - 6 - increment_in_em) + "em,-7em); -o-transform: translate(" + (1 * increment_in_em - 6 - increment_in_em) + "em,-7em); -ms-transform: translate(" + (1 * increment_in_em - 6 - increment_in_em) + "em,-7em); transform: translate(" + (1 * increment_in_em - 4 - increment_in_em) + "em,-5em);\">") + "<div style=\"-webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg);\">" + this.options.nameCols[1] + "</div></div></span>");
+      legendObject.push("<span style=\"height:" + this.options.cell_width + "px;\">" + "<div style=\"width:" + (2 * this.options.cell_width) + ("px; position: relative; height: 0; text-align: left; color: " + label1_color_option + "; font-weight: bold;") + ("  -webkit-transform: translate(" + (1 * increment_in_em - 6 - increment_in_em) + "em,-7em); -moz-transform: translate(" + (1 * increment_in_em - 6 - increment_in_em) + "em,-7em); -o-transform: translate(" + (1 * increment_in_em - 6 - increment_in_em) + "em,-7em); -ms-transform: translate(" + (1 * increment_in_em - 6 - increment_in_em) + "em,-7em); transform: translate(" + (1 * increment_in_em - increment_in_em) + "em," + label1_position_option + "em);\">") + ("<div style=\"-webkit-transform: rotate(" + label1_rotate_option + "deg); -moz-transform: rotate(" + label1_rotate_option + "deg);\">") + this.options.nameCols[1] + "</div></div></span>");
       for (col = _i = 0; 0 <= ysize ? _i < ysize : _i > ysize; col = 0 <= ysize ? ++_i : --_i) {
-        legendObject.push("<span style=\"height:" + this.options.cell_width + "px;\">" + "<div style=\"width:" + (2 * this.options.cell_width) + "px; position: relative; height: 0; text-align: left;" + ("  -webkit-transform: translate(" + (col * increment_in_em + 1 - increment_in_em) + "em,-6em); -moz-transform: translate(" + (col * increment_in_em + 1 - increment_in_em) + "em,-6em); -o-transform: translate(" + (col * increment_in_em + 1 - increment_in_em) + "em,-6em); -ms-transform: translate(" + (col * increment_in_em + 1 - increment_in_em) + "em,-6em); transform: translate(" + (col * increment_in_em + 4 - increment_in_em) + "em,-4em);\">") + "<div style=\"-webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg);\">" + gdrow[col].y + "</div></div></span>");
+        legendObject.push("<span style=\"height:" + this.options.cell_width + "px;\">" + "<div style=\"width:" + (2 * this.options.cell_width) + ("px; position: relative; height: 0; text-align: left; color: " + label1_color_option + ";") + ("  -webkit-transform: translate(" + (col * increment_in_em + 1 - increment_in_em) + "em,-6em); -moz-transform: translate(" + (col * increment_in_em + 1 - increment_in_em) + "em,-6em); -o-transform: translate(" + (col * increment_in_em + 1 - increment_in_em) + "em,-6em); -ms-transform: translate(" + (col * increment_in_em + 1 - increment_in_em) + "em,-6em); transform: translate(" + (col * increment_in_em + 4 - increment_in_em) + "em,-4em);\">") + "<div style=\"-webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg);\">" + gdrow[col].y + "</div></div></span>");
       }
-      legendObject.push("<span style=\"height:" + this.options.cell_width + "px;\">" + "<div style=\"width:" + (2 * this.options.cell_width) + "px; position: relative; height: 0; text-align: left; font-weight: bold;" + ("  -webkit-transform: translate(" + (xsize * increment_in_em + 6 + increment_in_em) + "em,-7em); -moz-transform: translate(" + (xsize * increment_in_em + 6 + increment_in_em) + "em,-7em); -o-transform: translate(" + (xsize * increment_in_em + 6 + increment_in_em) + "em,-7em); -ms-transform: translate(" + (xsize * increment_in_em + 6 + increment_in_em) + "em,-7em); transform: translate(" + (xsize * increment_in_em + 2) + "em," + (ysize * increment_in_em) + "em);\">") + "<div style=\"-webkit-transform: rotate(0deg); -moz-transform: rotate(0deg);\">" + this.options.nameCols[0] + "</div></div></span>");
+      legendObject.push("<span style=\"height:" + this.options.cell_width + "px;\">" + "<div style=\"width:" + (2 * this.options.cell_width) + ("px; position: relative; height: 0; text-align: left;  color: " + label2_color_option + "; font-weight: bold;") + ("  -webkit-transform: translate(" + (xsize * increment_in_em + 6 + increment_in_em) + "em,-7em); -moz-transform: translate(" + (xsize * increment_in_em + 6 + increment_in_em) + "em,-7em); -o-transform: translate(" + (xsize * increment_in_em + 6 + increment_in_em) + "em,-7em); -ms-transform: translate(" + (xsize * increment_in_em + 6 + increment_in_em) + "em,-7em); transform: translate(" + (xsize * increment_in_em + 2) + "em," + (ysize * increment_in_em) + "em); -webkit-transform: translate(" + (-cell_width / 7) + "em," + label2_position_option + "em);\">") + ("<div style=\"-webkit-transform: rotate(" + label2_rotate_option + "deg); -moz-transform: rotate(" + label2_rotate_option + "deg);\">") + this.options.nameCols[0] + "</div></div></span>");
       for (j = _j = 0; 0 <= ysize ? _j < ysize : _j > ysize; j = 0 <= ysize ? ++_j : --_j) {
         legendRowObject = [];
         from = gdrow[j].i * xintervalSize;
         colum_from = gdrow[j];
         for (i = _k = 0; 0 <= xsize ? _k < xsize : _k > xsize; i = 0 <= xsize ? ++_k : --_k) {
-          legendRowObject.push("<span class=\"swatch\" style=\"background:" + gdrow[(j * xsize) + i].c + "; position: initial;  display:block; float:left; height:" + this.options.cell_width + "px; width:" + this.options.cell_width + "px;\"" + "id=" + gdrow[(j * xsize) + i].i + "></span> ");
-          legendRowObject.push("<span class=\"swatch-gutter\" style=\"background:white; position: relative; display:block; float:left; height:" + this.options.cell_width + "px; width:" + this.options.gutter_width + "px;\"" + "></span> ");
+          legendRowObject.push("<span class=\"swatch\" style=\"background:" + gdrow[(j * xsize) + i].c + "; position: initial; display:block; float:left; height:" + this.options.cell_width + "px; width:" + this.options.cell_width + "px;\"" + "id=" + gdrow[(j * xsize) + i].i + "></span> ");
+          legendRowObject.push("<span class=\"swatch-gutter\" style=\"background:none; position: relative; display:block; float:left; height:" + this.options.cell_width + "px; width:" + this.options.gutter_width + "px;\"" + "></span> ");
           i++;
         }
         to = gdrow[j + 1].i * xintervalSize;
         gridwidth = this.options.gridwidth + this.options.row_label_width;
         legendObject.push("<li style=\"height:" + this.options.gutter_width + "px; position: relative; width:" + gridwidth + "px;" + "\">" + "</li>");
-        legendObject.push("<li style=\"height:" + this.options.cell_width + "px; position: relative; width:" + gridwidth + "px;" + "\">" + legendRowObject.join("") + "\v " + "\v " + "\v " + "\v " + "\v " + gdrow[j].x + "</li>");
+        legendObject.push("<li style=\"height:" + this.options.cell_width + ("px;  color: " + label2_color_option + "; position: relative; width:") + gridwidth + "px;" + "\">" + legendRowObject.join("") + "\v " + "\v " + "\v " + "\v " + "\v " + gdrow[j].x + "</li>");
         this._legendObject.push(legendObject);
         j++;
       }
