@@ -58,6 +58,7 @@ map = L.mapbox.map("map").setView([
   37.8
   -96
 ], 4)
+map.scrollWheelZoom.disable()
 popup = new L.Popup(autoPan: false)
 console.log statesData
 statesLayer = L.geoJson(statesData,

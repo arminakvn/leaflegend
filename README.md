@@ -4,25 +4,53 @@ interactive legend for leafletjs supporting bivariate choropleth maps
 
 ## About
 
-A JavaScript library by Armin Akhavan.
+A JavaScript library by **_320ryder_**.
 
-See the [project homepage](http://arminakvn.github.io/leaflegend).
+See the [demo](http://arminakvn.github.io/leaflegend/demo/index.html).
 
-## Installation
+## setting up for development
 
-Using Bower:
+We are using [Yeoman](http://yeoman.io/) for generating library, [GRUNT](http://gruntjs.com) for tasks and [Bower](http://bower.io/) for packaging.
 
-    bower install leaflegend
+You could use [Homebrew](http://brew.sh) to install npm.
 
-Or grab the [source](https://github.com/arminakvn/leaflegend/dist/leaflegend.js) ([minified](https://github.com/arminakvn/leaflegend/dist/leaflegend.min.js)).
+make sure you have installed npm. If using *NIX machines you can use [Homebrew](http://brew.sh):
+```
+brew install npm
+```
+install yo with:
+```
+npm install -g yo
+```
+install bower with:
+```
+npm install -g bower
+```
 
-## Usage
+install the yo's library generator with:
+```
+npm install -g generator-lib
+```
+you can use `npm` to install [GRUNT](http://gruntjs.com/getting-started):
+```
+npm install -g grunt-cli
+```
+if the grunt plugins are not installed you can run `npm install` when cd'd in the project directory.
 
-Basic usage is as follows:
+Fork the reposotiry then clone your fork of the repository from GitHub and cd into it.
+run the grunt tasks with:
+```
+grunt
+```
+for just compiling coffee to js run:
+```
+grunt coffee
+```
+for watching the coffee files for automatic compiling use:
+```
+grunt watch
+```
 
-    leaflegend();
-
-For advanced usage, see the documentation.
 
 ## Documentation
 

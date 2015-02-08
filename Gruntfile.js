@@ -66,7 +66,7 @@ module.exports = function(grunt) {
   	      tasks: ['coffee:compile', 'coffee:compileDemo']
   	  },
         files: ['<%= jshint.files %>'],
-        tasks: ['concat', 'jshint', 'qunit']
+        tasks: ['coffee', 'concat', 'jshint', 'qunit']
       }
 
   });
@@ -79,6 +79,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
 
   grunt.registerTask('test', ['jshint', 'qunit']);
-  grunt.registerTask('default', ['concat', 'jshint', 'qunit', 'uglify']);
+  grunt.registerTask('default', ['coffee', 'concat', 'jshint', 'uglify']);
 
 };

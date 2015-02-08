@@ -307,25 +307,32 @@ leaflegend = L.LeafLegend = L.Class.extend(
     legendObject = []
     legendRowObject = []
     @_legendObject = []
+    cell_width = @options.cell_width
+    label1_rotate_option = 0 # optional to -45
+    label1_position_option = @options.steps * @options.cell_width / 10.5 #-5 puts it on top ish
+    label1_color_option = "blue"
+    label2_rotate_option = -90
+    label2_position_option = @options.steps * @options.cell_width / 19
+    label2_color_option = "red"
     from = undefined
     to = undefined
     i = 0
     increment_in_em = 3.5 # setting up location paramater for legend labels
-    legendObject.push("<span style=\"height:" + @options.cell_width +  "px;\">" + "<div style=\"width:" + (2*@options.cell_width) + "px; position: relative; height: 0; text-align: left; font-weight: bold;" + "  -webkit-transform: translate(#{1*increment_in_em-6-increment_in_em}em,-7em); -moz-transform: translate(#{1*increment_in_em-6-increment_in_em}em,-7em); -o-transform: translate(#{1*increment_in_em-6-increment_in_em}em,-7em); -ms-transform: translate(#{1*increment_in_em-6-increment_in_em}em,-7em); transform: translate(#{1*increment_in_em-4-increment_in_em}em,-5em);\">" + "<div style=\"-webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg);\">" + @.options.nameCols[1] + "</div></div></span>")
-    legendObject.push("<span style=\"height:" + @options.cell_width +  "px;\">" + "<div style=\"width:" + (2*@options.cell_width) + "px; position: relative; height: 0; text-align: left;" + "  -webkit-transform: translate(#{(col)*increment_in_em+1-increment_in_em}em,-6em); -moz-transform: translate(#{(col)*increment_in_em+1-increment_in_em}em,-6em); -o-transform: translate(#{(col)*increment_in_em+1-increment_in_em}em,-6em); -ms-transform: translate(#{(col)*increment_in_em+1-increment_in_em}em,-6em); transform: translate(#{(col)*increment_in_em+4-increment_in_em}em,-4em);\">" + "<div style=\"-webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg);\">" + gdrow[col].y + "</div></div></span>") for col in [0...ysize]
-    legendObject.push("<span style=\"height:" + @options.cell_width +  "px;\">" + "<div style=\"width:" + (2*@options.cell_width) + "px; position: relative; height: 0; text-align: left; font-weight: bold;" + "  -webkit-transform: translate(#{xsize*increment_in_em+6+increment_in_em}em,-7em); -moz-transform: translate(#{xsize*increment_in_em+6+increment_in_em}em,-7em); -o-transform: translate(#{xsize*increment_in_em+6+increment_in_em}em,-7em); -ms-transform: translate(#{xsize*increment_in_em+6+increment_in_em}em,-7em); transform: translate(#{xsize*increment_in_em+2}em,#{ysize*increment_in_em}em);\">" + "<div style=\"-webkit-transform: rotate(0deg); -moz-transform: rotate(0deg);\">" + @.options.nameCols[0] + "</div></div></span>")
+    legendObject.push("<span style=\"height:" + @options.cell_width +  "px;\">" + "<div style=\"width:" + (2*@options.cell_width) + "px; position: relative; height: 0; text-align: left; color: #{label1_color_option}; font-weight: bold;" + "  -webkit-transform: translate(#{1*increment_in_em-6-increment_in_em}em,-7em); -moz-transform: translate(#{1*increment_in_em-6-increment_in_em}em,-7em); -o-transform: translate(#{1*increment_in_em-6-increment_in_em}em,-7em); -ms-transform: translate(#{1*increment_in_em-6-increment_in_em}em,-7em); transform: translate(#{1*increment_in_em-increment_in_em}em,#{label1_position_option}em);\">" + "<div style=\"-webkit-transform: rotate(#{label1_rotate_option}deg); -moz-transform: rotate(#{label1_rotate_option}deg);\">" + @.options.nameCols[1] + "</div></div></span>")
+    legendObject.push("<span style=\"height:" + @options.cell_width +  "px;\">" + "<div style=\"width:" + (2*@options.cell_width) + "px; position: relative; height: 0; text-align: left; color: #{label1_color_option};" + "  -webkit-transform: translate(#{(col)*increment_in_em+1-increment_in_em}em,-6em); -moz-transform: translate(#{(col)*increment_in_em+1-increment_in_em}em,-6em); -o-transform: translate(#{(col)*increment_in_em+1-increment_in_em}em,-6em); -ms-transform: translate(#{(col)*increment_in_em+1-increment_in_em}em,-6em); transform: translate(#{(col)*increment_in_em+4-increment_in_em}em,-4em);\">" + "<div style=\"-webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg);\">" + gdrow[col].y + "</div></div></span>") for col in [0...ysize]
+    legendObject.push("<span style=\"height:" + @options.cell_width +  "px;\">" + "<div style=\"width:" + (2*@options.cell_width) + "px; position: relative; height: 0; text-align: left;  color: #{label2_color_option}; font-weight: bold;" + "  -webkit-transform: translate(#{xsize*increment_in_em+6+increment_in_em}em,-7em); -moz-transform: translate(#{xsize*increment_in_em+6+increment_in_em}em,-7em); -o-transform: translate(#{xsize*increment_in_em+6+increment_in_em}em,-7em); -ms-transform: translate(#{xsize*increment_in_em+6+increment_in_em}em,-7em); transform: translate(#{xsize*increment_in_em+2}em,#{ysize*increment_in_em}em); -webkit-transform: translate(#{-cell_width/7}em,#{label2_position_option}em);\">" + "<div style=\"-webkit-transform: rotate(#{label2_rotate_option}deg); -moz-transform: rotate(#{label2_rotate_option}deg);\">" + @.options.nameCols[0] + "</div></div></span>")
     for j in [0...ysize]
         legendRowObject = []
         from = gdrow[j].i * xintervalSize
         colum_from = gdrow[j]
         for i in [0...xsize]
-            legendRowObject.push("<span class=\"swatch\" style=\"background:" + gdrow[(j*xsize)+i].c + "; position: initial;  display:block; float:left; height:" + @options.cell_width + "px; width:" + @options.cell_width+ "px;\"" + "id=" + gdrow[(j*xsize)+i].i + "></span> ")
-            legendRowObject.push("<span class=\"swatch-gutter\" style=\"background:white; position: relative; display:block; float:left; height:" + @options.cell_width + "px; width:" + @options.gutter_width+ "px;\"" + "></span> ")
+            legendRowObject.push("<span class=\"swatch\" style=\"background:" + gdrow[(j*xsize)+i].c + "; position: initial; display:block; float:left; height:" + @options.cell_width + "px; width:" + @options.cell_width+ "px;\"" + "id=" + gdrow[(j*xsize)+i].i + "></span> ")
+            legendRowObject.push("<span class=\"swatch-gutter\" style=\"background:none; position: relative; display:block; float:left; height:" + @options.cell_width + "px; width:" + @options.gutter_width+ "px;\"" + "></span> ")
             i++
         to = gdrow[j+1].i * xintervalSize
         gridwidth = @options.gridwidth + @options.row_label_width
         legendObject.push("<li style=\"height:" + @options.gutter_width + "px; position: relative; width:" + gridwidth + "px;" + "\">" +  "</li>")  # +"<span>" +  from + " to " + to +  "</span> ")
-        legendObject.push("<li style=\"height:" + @options.cell_width + "px; position: relative; width:" + gridwidth + "px;" + "\">" + legendRowObject.join("") + "\v " + "\v " + "\v " + "\v " + "\v " +gdrow[j].x+ "</li>")
+        legendObject.push("<li style=\"height:" + @options.cell_width + "px;  color: #{label2_color_option}; position: relative; width:" + gridwidth + "px;" + "\">" + legendRowObject.join("") + "\v " + "\v " + "\v " + "\v " + "\v " +gdrow[j].x+ "</li>")
         @_legendObject.push legendObject
         j++
     legend.push "<ul style=\"width: " + gridwidth + "px; list-style-type:none\">" + legendObject.join("") + "</ul>" 
