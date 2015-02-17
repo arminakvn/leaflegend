@@ -310,10 +310,11 @@ leaflegend = L.LeafLegend = L.Class.extend(
     cell_width = @options.cell_width
     label1_rotate_option = 0 # optional to -45
     label1_position_option = @options.steps * @options.cell_width / 10.5 #-5 puts it on top ish
-    label1_color_option = "blue"
+    label1_color_option = @options.color1
     label2_rotate_option = -90
+    label1_rotate_value_option = -90
     label2_position_option = @options.steps * @options.cell_width / 19
-    label2_color_option = "red"
+    label2_color_option = @options.color2
     from = undefined
     to = undefined
     i = 0
@@ -321,7 +322,7 @@ leaflegend = L.LeafLegend = L.Class.extend(
     gdrow_labels = gdrow[0..3]
     gdrow_labels.reverse()
     legendObject.push("<span style=\"height:" + @options.cell_width +  "px;\">" + "<div style=\"width:" + (2*@options.cell_width) + "px; position: relative; height: 0; text-align: left; color: #{label1_color_option}; font-weight: bold;" + "  -webkit-transform: translate(#{increment_in_em-increment_in_em}em,#{label1_position_option}em); -moz-transform: translate(#{increment_in_em-increment_in_em}em,#{label1_position_option}em); -o-transform: translate(#{increment_in_em-increment_in_em}em,#{label1_position_option}em); -ms-transform: translate(#{increment_in_em-increment_in_em}em,#{label1_position_option}em); transform: translate(#{increment_in_em-increment_in_em}em,#{label1_position_option}em);\">" + "<div style=\"-webkit-transform: rotate(#{label1_rotate_option}deg); -moz-transform: rotate(#{label1_rotate_option}deg);\">" + @.options.nameCols[1] + "</div></div></span>")
-    legendObject.push("<span style=\"height:" + @options.cell_width +  "px;\">" + "<div style=\"width:" + (2*@options.cell_width) + "px; position: relative; height: 0; text-align: left; color: #{label1_color_option};" + "  -webkit-transform: translate(#{(col)*increment_in_em+1-increment_in_em}em,-6em); -moz-transform: translate(#{(col)*increment_in_em+1-increment_in_em}em,-6em); -o-transform: translate(#{(col)*increment_in_em+1-increment_in_em}em,-6em); -ms-transform: translate(#{(col)*increment_in_em+1-increment_in_em}em,-6em); -webkit-transform: translate(#{(col)*increment_in_em+4-increment_in_em}em,-4em); transform: translate(#{(col)*increment_in_em+4-increment_in_em}em,-4em);\">" + "<div style=\"-webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg);\">" + gdrow_labels[col].y + "</div></div></span>") for col in [0...ysize]
+    legendObject.push("<span style=\"height:" + @options.cell_width +  "px;\">" + "<div style=\"width:" + (2*@options.cell_width) + "px; position: relative; height: 0; text-align: left; color: #{label1_color_option};" + "  -webkit-transform: translate(#{(col-1/2)*increment_in_em}em,-6em); -moz-transform: translate(#{(col-1/2)*increment_in_em}em,-6em); -o-transform: translate(#{(col-1/2)*increment_in_em}em,-6em); -ms-transform: translate(#{(col-1/2)*increment_in_em}em,#{-cell_width/7}em); -webkit-transform: translate(#{(col-1/2)*increment_in_em}em,#{-cell_width/7}em); transform: translate(#{(col-1/2)*increment_in_em}em,#{-cell_width/7}em);\">" + "<div style=\"-webkit-transform: rotate(#{label1_rotate_value_option}deg); -moz-transform: rotate(#{label1_rotate_value_option}deg);\">" + gdrow_labels[col].y + "</div></div></span>") for col in [0...ysize]
     legendObject.push("<span style=\"height:" + @options.cell_width +  "px;\">" + "<div style=\"width:" + (2*@options.cell_width) + "px; position: relative; height: 0; text-align: left;  color: #{label2_color_option}; font-weight: bold;" + "  -webkit-transform: translate(#{-cell_width/7}em,#{label2_position_option}em); -moz-transform: translate(#{-cell_width/7}em,#{label2_position_option}em); -o-transform: translate(#{-cell_width/7}em,#{label2_position_option}em); -ms-transform: translate(#{-cell_width/7}em,#{label2_position_option}em); transform: translate(#{-cell_width/7}em,#{label2_position_option}em); -webkit-transform: translate(#{-cell_width/7}em,#{label2_position_option}em);\">" + "<div style=\"-webkit-transform: rotate(#{label2_rotate_option}deg); -moz-transform: rotate(#{label2_rotate_option}deg);\">" + @.options.nameCols[0] + "</div></div></span>")
     for j in [0...ysize]
         legendRowObject = []
@@ -365,6 +366,7 @@ leaflegend = L.LeafLegend = L.Class.extend(
             if value.options and value.options.className == "range-#{e.target.id}"
                 value.bringToFront()
                 value.setStyle
+                    color: "white"
                     weight: 3
                     opacity: 0.9
                     fillOpacity: 0.9
@@ -379,6 +381,7 @@ leaflegend = L.LeafLegend = L.Class.extend(
         for key, value of mapLayers
             if value.options and value.options.className == "range-#{e.target.id}"
                 value.setStyle
+                    color: "black"
                     weight: 1
                     opacity: 0.4
                     fillOpacity: 1

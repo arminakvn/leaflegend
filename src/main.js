@@ -283,7 +283,7 @@
       return this;
     },
     getLegendHTML: function(map) {
-      var cell_width, col, colum_from, div, from, gdrow, gdrow_labels, gridwidth, i, increment_in_em, j, label1_color_option, label1_position_option, label1_rotate_option, label2_color_option, label2_position_option, label2_rotate_option, legend, legendObject, legendRowObject, legend_el, textControl, to, xintervalSize, xmin, xsize, yintervalSize, ymin, ysize, _i, _j, _k;
+      var cell_width, col, colum_from, div, from, gdrow, gdrow_labels, gridwidth, i, increment_in_em, j, label1_color_option, label1_position_option, label1_rotate_option, label1_rotate_value_option, label2_color_option, label2_position_option, label2_rotate_option, legend, legendObject, legendRowObject, legend_el, textControl, to, xintervalSize, xmin, xsize, yintervalSize, ymin, ysize, _i, _j, _k;
       this.map = map;
       this._m = map;
       xmin = this.options.xmin;
@@ -301,21 +301,20 @@
       cell_width = this.options.cell_width;
       label1_rotate_option = 0;
       label1_position_option = this.options.steps * this.options.cell_width / 10.5;
-      label1_color_option = "blue";
+      label1_color_option = this.options.color1;
       label2_rotate_option = -90;
+      label1_rotate_value_option = -90;
       label2_position_option = this.options.steps * this.options.cell_width / 19;
-      label2_color_option = "red";
+      label2_color_option = this.options.color2;
       from = void 0;
       to = void 0;
       i = 0;
       increment_in_em = 3.5;
       gdrow_labels = gdrow.slice(0, 4);
-      console.log(gdrow_labels);
       gdrow_labels.reverse();
-      console.log(gdrow_labels);
       legendObject.push("<span style=\"height:" + this.options.cell_width + "px;\">" + "<div style=\"width:" + (2 * this.options.cell_width) + ("px; position: relative; height: 0; text-align: left; color: " + label1_color_option + "; font-weight: bold;") + ("  -webkit-transform: translate(" + (increment_in_em - increment_in_em) + "em," + label1_position_option + "em); -moz-transform: translate(" + (increment_in_em - increment_in_em) + "em," + label1_position_option + "em); -o-transform: translate(" + (increment_in_em - increment_in_em) + "em," + label1_position_option + "em); -ms-transform: translate(" + (increment_in_em - increment_in_em) + "em," + label1_position_option + "em); transform: translate(" + (increment_in_em - increment_in_em) + "em," + label1_position_option + "em);\">") + ("<div style=\"-webkit-transform: rotate(" + label1_rotate_option + "deg); -moz-transform: rotate(" + label1_rotate_option + "deg);\">") + this.options.nameCols[1] + "</div></div></span>");
       for (col = _i = 0; 0 <= ysize ? _i < ysize : _i > ysize; col = 0 <= ysize ? ++_i : --_i) {
-        legendObject.push("<span style=\"height:" + this.options.cell_width + "px;\">" + "<div style=\"width:" + (2 * this.options.cell_width) + ("px; position: relative; height: 0; text-align: left; color: " + label1_color_option + ";") + ("  -webkit-transform: translate(" + (col * increment_in_em + 1 - increment_in_em) + "em,-6em); -moz-transform: translate(" + (col * increment_in_em + 1 - increment_in_em) + "em,-6em); -o-transform: translate(" + (col * increment_in_em + 1 - increment_in_em) + "em,-6em); -ms-transform: translate(" + (col * increment_in_em + 1 - increment_in_em) + "em,-6em); -webkit-transform: translate(" + (col * increment_in_em + 4 - increment_in_em) + "em,-4em); transform: translate(" + (col * increment_in_em + 4 - increment_in_em) + "em,-4em);\">") + "<div style=\"-webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg);\">" + gdrow_labels[col].y + "</div></div></span>");
+        legendObject.push("<span style=\"height:" + this.options.cell_width + "px;\">" + "<div style=\"width:" + (2 * this.options.cell_width) + ("px; position: relative; height: 0; text-align: left; color: " + label1_color_option + ";") + ("  -webkit-transform: translate(" + ((col - 1 / 2) * increment_in_em) + "em,-6em); -moz-transform: translate(" + ((col - 1 / 2) * increment_in_em) + "em,-6em); -o-transform: translate(" + ((col - 1 / 2) * increment_in_em) + "em,-6em); -ms-transform: translate(" + ((col - 1 / 2) * increment_in_em) + "em," + (-cell_width / 7) + "em); -webkit-transform: translate(" + ((col - 1 / 2) * increment_in_em) + "em," + (-cell_width / 7) + "em); transform: translate(" + ((col - 1 / 2) * increment_in_em) + "em," + (-cell_width / 7) + "em);\">") + ("<div style=\"-webkit-transform: rotate(" + label1_rotate_value_option + "deg); -moz-transform: rotate(" + label1_rotate_value_option + "deg);\">") + gdrow_labels[col].y + "</div></div></span>");
       }
       legendObject.push("<span style=\"height:" + this.options.cell_width + "px;\">" + "<div style=\"width:" + (2 * this.options.cell_width) + ("px; position: relative; height: 0; text-align: left;  color: " + label2_color_option + "; font-weight: bold;") + ("  -webkit-transform: translate(" + (-cell_width / 7) + "em," + label2_position_option + "em); -moz-transform: translate(" + (-cell_width / 7) + "em," + label2_position_option + "em); -o-transform: translate(" + (-cell_width / 7) + "em," + label2_position_option + "em); -ms-transform: translate(" + (-cell_width / 7) + "em," + label2_position_option + "em); transform: translate(" + (-cell_width / 7) + "em," + label2_position_option + "em); -webkit-transform: translate(" + (-cell_width / 7) + "em," + label2_position_option + "em);\">") + ("<div style=\"-webkit-transform: rotate(" + label2_rotate_option + "deg); -moz-transform: rotate(" + label2_rotate_option + "deg);\">") + this.options.nameCols[0] + "</div></div></span>");
       for (j = _j = 0; 0 <= ysize ? _j < ysize : _j > ysize; j = 0 <= ysize ? ++_j : --_j) {
@@ -368,6 +367,7 @@
           if (value.options && value.options.className === ("range-" + e.target.id)) {
             value.bringToFront();
             value.setStyle({
+              color: "white",
               weight: 3,
               opacity: 0.9,
               fillOpacity: 0.9
@@ -386,6 +386,7 @@
           value = mapLayers[key];
           if (value.options && value.options.className === ("range-" + e.target.id)) {
             value.setStyle({
+              color: "black",
               weight: 1,
               opacity: 0.4,
               fillOpacity: 1

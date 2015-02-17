@@ -1,14 +1,14 @@
 (function() {
   var closeTooltip, getStyle, leafleg, legend, map, mousemove, mouseout, mouseover, onEachFeature, popup, statesLayer, zoomToFeature;
 
-  leafleg = L.leaflegend().color1("lightblue").color2("green").steps(4).xsize(4).ysize(4).makeGrid();
+  leafleg = L.leaflegend().color1("skyblue").color2("purple").steps(4).xsize(4).ysize(4).makeGrid();
 
   getStyle = function(feature) {
     return {
       weight: 1,
       opacity: 0.4,
       color: "black",
-      fillOpacity: 1,
+      fillOpacity: 0.95,
       fillColor: leafleg.getColorByRangeAndSize(feature.properties.per_capt, feature.properties.density).c,
       className: "range-" + leafleg.getColorByRangeAndSize(feature.properties.per_capt, feature.properties.density).i,
       id: "range-" + leafleg.getColorByRangeAndSize(feature.properties.per_capt, feature.properties.density).i
@@ -37,6 +37,7 @@
       leafleg.highlightByFeature(e);
     }
     layer.setStyle({
+      color: "white",
       weight: 3,
       opacity: 0.8,
       fillOpacity: 0.9
@@ -63,6 +64,8 @@
 
   map = L.mapbox.map("map").setView([37.8, -96], 4);
 
+  L.mapbox.tileLayer('arminavn.4o0plkma').addTo(map);
+
   map.scrollWheelZoom.disable();
 
   popup = new L.Popup({
@@ -82,7 +85,7 @@
 
   legend.onAdd = function(map) {
     var div, leg_div;
-    leafleg = L.leaflegend().color1("lightblue").color2("green").nameLegCols(['Educational attainment', 'Population density']).steps(4).xsize(4).ysize(4).makeGrid();
+    leafleg = L.leaflegend().color1("skyblue").color2("purple").nameLegCols(['Educational attainment', 'Population density']).steps(4).xsize(4).ysize(4).makeGrid();
     div = void 0;
     div = document.getElementById("leaflegend");
     leg_div = leafleg.getLegendHTML(map);
