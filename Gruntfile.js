@@ -8,7 +8,7 @@ module.exports = function(grunt) {
   	      expand: true,
   	      flatten: true,
   	      cwd: __dirname + "/demo/assets/",
-  	      src: ['demo.coffee'],
+  	      src: ['demo.coffee', 'demo_t.coffee'],
   	      dest: 'demo/assets/',
   	      ext: '.js'
   	    },
