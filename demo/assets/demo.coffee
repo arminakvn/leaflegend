@@ -1,10 +1,10 @@
-leafleg = L.leaflegend().color1("lightblue").color2("green").steps(4).xsize(4).ysize(4).makeGrid()
+leafleg = L.leaflegend().color1("skyblue").color2("purple").steps(4).xsize(4).ysize(4).makeGrid()
 getStyle = (feature) ->
 
   weight: 1
   opacity: 0.4
   color: "black"
-  fillOpacity: 1
+  fillOpacity: 0.95
   fillColor: leafleg.getColorByRangeAndSize(feature.properties.per_capt,feature.properties.density).c
   className: "range-" + leafleg.getColorByRangeAndSize(feature.properties.per_capt,feature.properties.density).i
   id: "range-" + leafleg.getColorByRangeAndSize(feature.properties.per_capt,feature.properties.density).i
@@ -28,6 +28,7 @@ mousemove = (e) ->
   leafleg.highlightByFeature(e) if e.target
   # highlight feature
   layer.setStyle
+    color: "white"
     weight: 3
     opacity: 0.8
     fillOpacity: 0.9
@@ -58,6 +59,7 @@ map = L.mapbox.map("map").setView([
   37.8
   -96
 ], 4)
+L.mapbox.tileLayer('arminavn.4o0plkma').addTo( map)
 map.scrollWheelZoom.disable()
 popup = new L.Popup(autoPan: false)
 console.log statesData
@@ -68,7 +70,7 @@ statesLayer = L.geoJson(statesData,
 legend = L.control(position: "bottomright")
 
 legend.onAdd = (map) ->
-  leafleg = L.leaflegend().color1("lightblue").color2("green").nameLegCols(['Educational attainment', 'Population density']).steps(4).xsize(4).ysize(4).makeGrid()
+  leafleg = L.leaflegend().color1("skyblue").color2("purple").nameLegCols(['Educational attainment', 'Population density']).steps(4).xsize(4).ysize(4).makeGrid()
   # leafleg.nameLegCols('Educational attainment', 'Population density') # should be horizental then vertical, x then y
   div = undefined
   div = document.getElementById("leaflegend")

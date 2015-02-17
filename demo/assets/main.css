@@ -35,6 +35,9 @@
 .leaflet-popup-content-wrapper {
   pointer-events: none;
   }
+h1 {
+padding-left: 25%;
+}
 /* === resets === */
 
 /* === defaults === */
