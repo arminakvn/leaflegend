@@ -12,9 +12,9 @@
       color2: "",
       steps: 4,
       xmin: 0,
-      xmax: 49,
+      xmax: 33798829,
       ymin: 0,
-      ymax: 1190,
+      ymax: 34518900,
       xsize: 4,
       ysize: 4,
       cols1: [],
@@ -175,10 +175,10 @@
       colurschema3 = [];
       colurschema4 = [];
       for (x = _l = 0; _l < 1; x = _l += icreament_size) {
-        colurschema1.push(chroma.interpolate(color1, "black", x, "lab").hex());
-        colurschema2.push(chroma.interpolate("black", color2, x, "lab").hex());
-        colurschema3.push(chroma.interpolate(color1, "white", x, "lab").hex());
-        colurschema4.push(chroma.interpolate("white", color2, x, "lab").hex());
+        colurschema1.push(chroma.interpolate(color1, "white", x, "lab").hex());
+        colurschema2.push(chroma.interpolate("white", color2, x, "lab").hex());
+        colurschema3.push(chroma.interpolate(color1, "black", x, "lab").hex());
+        colurschema4.push(chroma.interpolate("black", color2, x, "lab").hex());
       }
       colurs = [];
       cols1 = [];
