@@ -104,6 +104,14 @@ leaflegend = L.LeafLegend = L.Class.extend(
   yintervalSize: (newYintervalSize) ->
     @options.yintervalSize = newYintervalSize
     this
+
+  xintervals: (newXintervals) ->
+    @options.xintervals = newXintervals
+    this
+  yintervals: (newYintervals) ->
+    @options.yintervals = newYintervals
+    this
+      
   gutterWidth: (newGutterWidth) ->
     @options.gutter_width = newGutterWidth
     this
@@ -170,19 +178,22 @@ leaflegend = L.LeafLegend = L.Class.extend(
         cols1.push chroma.interpolate(cl1,  cl2, m, "lab") for m in [0...1] by icreament_size
         # cols1.push m for m in colurschema4
     # 
-    console.log "@options.xmin", @options.xmin, "@options.xmax", @options.xmax
+    # console.log "@options.xmin", @options.xmin, "@options.xmax", @options.xmax
     xintervalSize = @options.xmax/x_size
-    xintervals = []
-    xintervals.push @options.xmin + (i * xintervalSize) for i in [0...x_size]
+    # xintervals = []
+    # xintervals.push @options.xmin + (i * xintervalSize) for i in [0...x_size]
     
     yintervalSize = @options.ymax/@options.ysize
-    yintervals = []
-    yintervals.push @options.ymin + (i * yintervalSize) for i in [0...y_size]
-    
-    @xintervals = xintervals
-    @yintervals = yintervals
-    @options.xintervals = xintervals
-    @options.yintervals = yintervals
+    # yintervals = []
+    # yintervals.push @options.ymin + (i * yintervalSize) for i in [0...y_size]
+    # console.log "xintervals", xintervals
+    # console.log "yintervals", yintervals
+    # @xintervals = xintervals
+    # @yintervals = yintervals
+    # @options.xintervals = xintervals
+    # @options.yintervals = yintervals
+    xintervals = @options.xintervals
+    yintervals = @options.yintervals
     @.colurschema1 colurschema1
     @.colurschema2 colurschema2
     @.colurschema3 colurschema3
@@ -227,7 +238,7 @@ leaflegend = L.LeafLegend = L.Class.extend(
         legend_el.setAttribute("id", "leaflegend")
         $( "body" ).append(legend_el)
     else 
-        legend_el=@options.legend_el
+        legend_el= @options.legend_el
     
     leg_el = $(legend_el)
 
@@ -334,7 +345,7 @@ leaflegend = L.LeafLegend = L.Class.extend(
         horiz_x = gdrow[l].x
         row_lebel.push horiz_x
         # to_x = gdrow[l+1].i * xintervalSize
-    row_lebel.reverse()
+    # row_lebel.reverse()
     for j in [0...ysize]
         legendRowObject = []
         from = gdrow[j].i * xintervalSize
