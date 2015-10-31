@@ -64,7 +64,7 @@
 
   map = L.mapbox.map("map").setView([42.625183, -70.678424], 13);
 
-  cartoDataUrl = "http://arminavn.cartodb.com/api/v2/sql?format=geojson&q=SELECT * FROM glsterparcels&api_key=9150413ca8fb81229459d0a5c2947620e42d0940";
+  cartoDataUrl = "http://arminavn.cartodb.com/api/v2/sql?format=geojson&q=SELECT * FROM glsterparcels WHERE land_value < 5500000 &api_key=9150413ca8fb81229459d0a5c2947620e42d0940";
 
   L.mapbox.tileLayer('arminavn.4o0plkma').addTo(map);
 
@@ -118,7 +118,7 @@
 
   legend.onAdd = function(map) {
     var div, leg_div;
-    leafleg = L.leaflegend().color1("skyblue").color2("purple").nameLegCols(['land_value', 'far']).steps(4).xsize(4).ysize(4).makeGrid();
+    leafleg = L.leaflegend().color1("skyblue").color2("purple").nameLegCols(['land_value', 'far']).steps(4).xsize(4).ysize(4).xintervals([0, .75, .2, 5, 10]).yintervals([0, 400000, 420000, 440000, 5500000]).makeGrid();
     div = void 0;
     div = document.getElementById("leaflegend");
     leg_div = leafleg.getLegendHTML(map);

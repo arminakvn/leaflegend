@@ -135,6 +135,14 @@
       this.options.yintervalSize = newYintervalSize;
       return this;
     },
+    xintervals: function(newXintervals) {
+      this.options.xintervals = newXintervals;
+      return this;
+    },
+    yintervals: function(newYintervals) {
+      this.options.yintervals = newYintervals;
+      return this;
+    },
     gutterWidth: function(newGutterWidth) {
       this.options.gutter_width = newGutterWidth;
       return this;
@@ -155,7 +163,7 @@
       return this.nameCols(horizarntalvertical);
     },
     makeGrid: function() {
-      var $palettes, bez, cell_width, cl1, cl2, color1, color2, cols1, colurs, colurschema1, colurschema2, colurschema3, colurschema4, colurseq, colursstatements, gdc, gdrow, grid_size, grid_size_effective, gridwidth, gutter_width, height, i, icreament_size, j, leg_el, legend_el, m, n, pallets, rects, steps, width, x, x_size, xintervalSize, xintervals, xsize, y_size, yintervalSize, yintervals, ysize, _i, _j, _k, _l, _m, _n, _o, _p, _q, _r, _s;
+      var $palettes, bez, cell_width, cl1, cl2, color1, color2, cols1, colurs, colurschema1, colurschema2, colurschema3, colurschema4, colurseq, colursstatements, gdc, gdrow, grid_size, grid_size_effective, gridwidth, gutter_width, height, i, icreament_size, j, leg_el, legend_el, m, n, pallets, rects, steps, width, x, x_size, xintervalSize, xintervals, xsize, y_size, yintervalSize, yintervals, ysize, _i, _j, _k, _l, _m, _n, _o, _p, _q;
       color1 = this.options.color1;
       color2 = this.options.color2;
       steps = this.options.steps;
@@ -204,21 +212,10 @@
           }
         }
       }
-      console.log("@options.xmin", this.options.xmin, "@options.xmax", this.options.xmax);
       xintervalSize = this.options.xmax / x_size;
-      xintervals = [];
-      for (i = _p = 0; 0 <= x_size ? _p < x_size : _p > x_size; i = 0 <= x_size ? ++_p : --_p) {
-        xintervals.push(this.options.xmin + (i * xintervalSize));
-      }
       yintervalSize = this.options.ymax / this.options.ysize;
-      yintervals = [];
-      for (i = _q = 0; 0 <= y_size ? _q < y_size : _q > y_size; i = 0 <= y_size ? ++_q : --_q) {
-        yintervals.push(this.options.ymin + (i * yintervalSize));
-      }
-      this.xintervals = xintervals;
-      this.yintervals = yintervals;
-      this.options.xintervals = xintervals;
-      this.options.yintervals = yintervals;
+      xintervals = this.options.xintervals;
+      yintervals = this.options.yintervals;
       this.colurschema1(colurschema1);
       this.colurschema2(colurschema2);
       this.colurschema3(colurschema3);
@@ -260,8 +257,8 @@
       gdc = {};
       gdrow = [];
       n = 0;
-      for (i = _r = 0; 0 <= xsize ? _r < xsize : _r > xsize; i = 0 <= xsize ? ++_r : --_r) {
-        for (j = _s = 0; 0 <= ysize ? _s < ysize : _s > ysize; j = 0 <= ysize ? ++_s : --_s) {
+      for (i = _p = 0; 0 <= xsize ? _p < xsize : _p > xsize; i = 0 <= xsize ? ++_p : --_p) {
+        for (j = _q = 0; 0 <= ysize ? _q < ysize : _q > ysize; j = 0 <= ysize ? ++_q : --_q) {
           if (this.options.cols1[(i * xsize) + j] === void 0) {
 
           } else {
@@ -331,7 +328,6 @@
         horiz_x = gdrow[l].x;
         row_lebel.push(horiz_x);
       }
-      row_lebel.reverse();
       for (j = _l = 0; 0 <= ysize ? _l < ysize : _l > ysize; j = 0 <= ysize ? ++_l : --_l) {
         legendRowObject = [];
         from = gdrow[j].i * xintervalSize;
