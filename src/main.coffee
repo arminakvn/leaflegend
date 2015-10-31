@@ -8,10 +8,10 @@ leaflegend = L.LeafLegend = L.Class.extend(
     color2: ""
     steps: 4
     xmin: 0
-    xmax: 33798829
+    xmax: 350000
     ymin: 0
-    ymax:  34518900
-    xsize: 4
+    ymax:  10
+    xsize:4
     ysize: 4
     cols1: []
     gdrow: []
@@ -26,7 +26,7 @@ leaflegend = L.LeafLegend = L.Class.extend(
     cell_width: []
     legend_el: undefined
     gridwidth: 164
-    xintervalSize: 100
+    xintervalSize: 0.1
     yintervalSize: 10
     gutter_width: 0
     row_label_width: 120
@@ -170,6 +170,7 @@ leaflegend = L.LeafLegend = L.Class.extend(
         cols1.push chroma.interpolate(cl1,  cl2, m, "lab") for m in [0...1] by icreament_size
         # cols1.push m for m in colurschema4
     # 
+    console.log "@options.xmin", @options.xmin, "@options.xmax", @options.xmax
     xintervalSize = @options.xmax/x_size
     xintervals = []
     xintervals.push @options.xmin + (i * xintervalSize) for i in [0...x_size]
@@ -295,14 +296,14 @@ leaflegend = L.LeafLegend = L.Class.extend(
   getLegendHTML: (map) ->
     this.map = map
     @_m = map
-    xmin =@options.xmin
-    ymin =@options.ymin
+    xmin = @options.xmin
+    ymin = @options.ymin
     xintervalSize = @options.xintervalSize
     yintervalSize = @options.yintervalSize
-    gdrow=@options.gdrow
-    xsize=@options.xsize
-    ysize=@options.ysize
-    legend_el=@options.legend_el
+    gdrow= @options.gdrow
+    xsize= @options.xsize
+    ysize= @options.ysize
+    legend_el= @options.legend_el
     legend = []
     legendObject = []
     legendRowObject = []
@@ -310,20 +311,30 @@ leaflegend = L.LeafLegend = L.Class.extend(
     cell_width = @options.cell_width
     label1_rotate_option = 0 # optional to -45
     label1_position_option = @options.steps * @options.cell_width / 10.5 #-5 puts it on top ish
-    label1_color_option = @options.color1
+    label1_color_option = @options.color2
     label2_rotate_option = -90
     label1_rotate_value_option = -90
     label2_position_option = @options.steps * @options.cell_width / 19
-    label2_color_option = @options.color2
+    label2_color_option = @options.color1
     from = undefined
     to = undefined
     i = 0
     increment_in_em = 3.5 # setting up location paramater for legend labels
-    gdrow_labels = gdrow[0..3]
-    gdrow_labels.reverse()
+    gdrow_labels = gdrow[0..@options.steps]
+    # gdrow_labels.reverse()
+    col_labels = []
+    col_labels.push gdrow_labels[col] for col in [0...ysize]
+    # col_labels.reverse()
     legendObject.push("<span style=\"height:" + @options.cell_width +  "px;\">" + "<div style=\"width:" + (2*@options.cell_width) + "px; position: relative; height: 0; text-align: left; color: #{label1_color_option}; font-weight: bold;" + "  -webkit-transform: translate(#{increment_in_em-increment_in_em}em,#{label1_position_option}em); -moz-transform: translate(#{increment_in_em-increment_in_em}em,#{label1_position_option}em); -o-transform: translate(#{increment_in_em-increment_in_em}em,#{label1_position_option}em); -ms-transform: translate(#{increment_in_em-increment_in_em}em,#{label1_position_option}em); transform: translate(#{increment_in_em-increment_in_em}em,#{label1_position_option}em);\">" + "<div style=\"-webkit-transform: rotate(#{label1_rotate_option}deg); -moz-transform: rotate(#{label1_rotate_option}deg);\">" + @.options.nameCols[1] + "</div></div></span>")
-    legendObject.push("<span style=\"height:" + @options.cell_width +  "px;\">" + "<div style=\"width:" + (2*@options.cell_width) + "px; position: relative; height: 0; text-align: left; color: #{label1_color_option};" + "  -webkit-transform: translate(#{(col-1/2)*increment_in_em}em,-6em); -moz-transform: translate(#{(col-1/2)*increment_in_em}em,-6em); -o-transform: translate(#{(col-1/2)*increment_in_em}em,-6em); -ms-transform: translate(#{(col-1/2)*increment_in_em}em,#{-cell_width/7}em); -webkit-transform: translate(#{(col-1/2)*increment_in_em}em,#{-cell_width/7}em); transform: translate(#{(col-1/2)*increment_in_em}em,#{-cell_width/7}em);\">" + "<div style=\"-webkit-transform: rotate(#{label1_rotate_value_option}deg); -moz-transform: rotate(#{label1_rotate_value_option}deg);\">" + gdrow_labels[col].y + "</div></div></span>") for col in [0...ysize]
+    legendObject.push("<span style=\"height:" + @options.cell_width +  "px;\">" + "<div style=\"width:" + (2*@options.cell_width) + "px; position: relative; height: 0; text-align: left; color: #{label1_color_option};" + "  -webkit-transform: translate(#{(col-1/2)*increment_in_em}em,-6em); -moz-transform: translate(#{(col-1/2)*increment_in_em}em,-6em); -o-transform: translate(#{(col-1/2)*increment_in_em}em,-6em); -ms-transform: translate(#{(col-1/2)*increment_in_em}em,#{-cell_width/7}em); -webkit-transform: translate(#{(col-1/2)*increment_in_em}em,#{-cell_width/7}em); transform: translate(#{(col-1/2)*increment_in_em}em,#{-cell_width/7}em);\">" + "<div style=\"-webkit-transform: rotate(#{label1_rotate_value_option}deg); -moz-transform: rotate(#{label1_rotate_value_option}deg);\">" + col_labels[col].y + "</div></div></span>") for col in [0...ysize]
     legendObject.push("<span style=\"height:" + @options.cell_width +  "px;\">" + "<div style=\"width:" + (2*@options.cell_width) + "px; position: relative; height: 0; text-align: left;  color: #{label2_color_option}; font-weight: bold;" + "  -webkit-transform: translate(#{-cell_width/7}em,#{label2_position_option}em); -moz-transform: translate(#{-cell_width/7}em,#{label2_position_option}em); -o-transform: translate(#{-cell_width/7}em,#{label2_position_option}em); -ms-transform: translate(#{-cell_width/7}em,#{label2_position_option}em); transform: translate(#{-cell_width/7}em,#{label2_position_option}em); -webkit-transform: translate(#{-cell_width/7}em,#{label2_position_option}em);\">" + "<div style=\"-webkit-transform: rotate(#{label2_rotate_option}deg); -moz-transform: rotate(#{label2_rotate_option}deg);\">" + @.options.nameCols[0] + "</div></div></span>")
+    # creating a holder for the labels of the horizental axises to be reversed
+    row_lebel = []
+    for l in [0...ysize]
+        horiz_x = gdrow[l].x
+        row_lebel.push horiz_x
+        # to_x = gdrow[l+1].i * xintervalSize
+    row_lebel.reverse()
     for j in [0...ysize]
         legendRowObject = []
         from = gdrow[j].i * xintervalSize
@@ -332,10 +343,11 @@ leaflegend = L.LeafLegend = L.Class.extend(
             legendRowObject.push("<span class=\"swatch\" style=\"background:" + gdrow[(j*xsize)+i].c + "; position: initial; display:block; float:left; height:" + @options.cell_width + "px; width:" + @options.cell_width+ "px;\"" + "id=" + gdrow[(j*xsize)+i].i + "></span> ")
             legendRowObject.push("<span class=\"swatch-gutter\" style=\"background:none; position: relative; display:block; float:left; height:" + @options.cell_width + "px; width:" + @options.gutter_width+ "px;\"" + "></span> ")
             i++
-        to = gdrow[j+1].i * xintervalSize
+        # to = gdrow[j+1].i * xintervalSize
         gridwidth = @options.gridwidth + @options.row_label_width
+        # console.log "gdrow[j]",gdrow[j]
         legendObject.push("<li style=\"height:" + @options.gutter_width + "px; position: relative; width:" + gridwidth + "px;" + "\">" +  "</li>")  # +"<span>" +  from + " to " + to +  "</span> ")
-        legendObject.push("<li style=\"height:" + @options.cell_width + "px;  color: #{label2_color_option}; position: relative; width:" + gridwidth + "px;" + "\">" + legendRowObject.join("") + "\v " + "\v " + "\v " + "\v " + "\v " +gdrow[j].x+ "</li>")
+        legendObject.push("<li style=\"height:" + @options.cell_width + "px;  color: #{label2_color_option}; position: relative; width:" + gridwidth + "px;" + "\">" + legendRowObject.join("") + "\v " + "\v " + "\v " + "\v " + "\v " +row_lebel[j]+ "</li>")
         @_legendObject.push legendObject
         j++
     legend.push "<ul style=\"width: " + gridwidth + "px; list-style-type:none\">" + legendObject.join("") + "</ul>" 

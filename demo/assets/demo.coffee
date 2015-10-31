@@ -12,9 +12,9 @@ getStyle = (feature) ->
   opacity: 0.4
   color: "black"
   fillOpacity: 0.95
-  fillColor: leafleg.getColorByRangeAndSize(feature.properties.total_valu,feature.properties.lot_areaft).c
-  className: "range-" + leafleg.getColorByRangeAndSize(feature.properties.total_valu,feature.properties.lot_areaft).i
-  id: "range-" + leafleg.getColorByRangeAndSize(feature.properties.total_valu,feature.properties.lot_areaft).i
+  fillColor: leafleg.getColorByRangeAndSize(feature.properties.land_value,feature.properties.far).c
+  className: "range-" + leafleg.getColorByRangeAndSize(feature.properties.land_value,feature.properties.far).i
+  id: "range-" + leafleg.getColorByRangeAndSize(feature.properties.land_value,feature.properties.far).i
 
 onEachFeature = (feature, layer) ->
   layer.on
@@ -26,10 +26,11 @@ onEachFeature = (feature, layer) ->
   return
 mouseover = (e) ->
   layer = e.target
-  layerPopup = L.popup()
-           .setLatLng(e.latlng)
-           .setContent(layer.feature.properties.owner_name)
-            .openOn(map)
+  console.log "layer", layer
+  # layerPopup = L.popup()
+  #          .setLatLng(e.latlng)
+  #          .setContent(layer.feature.properties.owner_name)
+  #           .openOn(map)
 mousemove = (e) ->
   layer = e.target
   leafleg.highlightByFeature(e) if e.target
@@ -65,7 +66,7 @@ L.mapbox.accessToken = "pk.eyJ1IjoiYXJtaW5hdm4iLCJhIjoiSTFteE9EOCJ9.iDzgmNaITa0-
 map = L.mapbox.map("map").setView([
   42.625183
   -70.678424
-], 12)
+], 13)
 cartoDataUrl = "http://arminavn.cartodb.com/api/v2/sql?format=geojson&q=SELECT * FROM glsterparcels&api_key=9150413ca8fb81229459d0a5c2947620e42d0940"
 L.mapbox.tileLayer('arminavn.4o0plkma').addTo( map)
 $.ajax cartoDataUrl,
@@ -120,15 +121,15 @@ ready = (error, us) ->
     throw error
   console.log us
   return
-jsondata = omnivore.topojson('assets/tracts2010topo.json', {})
+# jsondata = omnivore.topojson('assets/tracts2010topo.json', {})
 # jsondata.addTo map
 statesLayer = L.geoJson(null,
   style: getStyle
   onEachFeature: onEachFeature
 ).addTo(map).bindPopup()
-queue().defer(d3.csv, 'assets/boston-data.csv', (d) ->
-  return d
-).await parse
+# queue().defer(d3.csv, 'assets/boston-data.csv', (d) ->
+#   return d
+# ).await parse
 legend = L.control(position: "bottomright")
 console.log statesLayer
 
@@ -151,7 +152,7 @@ console.log statesLayer
 #   return
 
 legend.onAdd = (map) ->
-  leafleg = L.leaflegend().color1("skyblue").color2("purple").nameLegCols(['Educational attainment', 'Population density']).steps(4).xsize(4).ysize(4).makeGrid()
+  leafleg = L.leaflegend().color1("skyblue").color2("purple").nameLegCols(['land_value', 'far']).steps(4).xsize(4).ysize(4).makeGrid()
   # leafleg.nameLegCols('Educational attainment', 'Population density') # should be horizental then vertical, x then y
   div = undefined
   div = document.getElementById("leaflegend")
