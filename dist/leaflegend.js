@@ -17,9 +17,9 @@
       color2: "",
       steps: 4,
       xmin: 0,
-      xmax: 49,
+      xmax: 350000,
       ymin: 0,
-      ymax: 1190,
+      ymax: 10,
       xsize: 4,
       ysize: 4,
       cols1: [],
@@ -35,7 +35,7 @@
       cell_width: [],
       legend_el: void 0,
       gridwidth: 164,
-      xintervalSize: 100,
+      xintervalSize: 0.1,
       yintervalSize: 10,
       gutter_width: 0,
       row_label_width: 120,
@@ -180,10 +180,10 @@
       colurschema3 = [];
       colurschema4 = [];
       for (x = _l = 0; _l < 1; x = _l += icreament_size) {
-        colurschema1.push(chroma.interpolate(color1, "black", x, "lab").hex());
-        colurschema2.push(chroma.interpolate("black", color2, x, "lab").hex());
-        colurschema3.push(chroma.interpolate(color1, "white", x, "lab").hex());
-        colurschema4.push(chroma.interpolate("white", color2, x, "lab").hex());
+        colurschema1.push(chroma.interpolate(color1, "white", x, "lab").hex());
+        colurschema2.push(chroma.interpolate("white", color2, x, "lab").hex());
+        colurschema3.push(chroma.interpolate(color1, "black", x, "lab").hex());
+        colurschema4.push(chroma.interpolate("black", color2, x, "lab").hex());
       }
       colurs = [];
       cols1 = [];
@@ -204,6 +204,7 @@
           }
         }
       }
+      console.log("@options.xmin", this.options.xmin, "@options.xmax", this.options.xmax);
       xintervalSize = this.options.xmax / x_size;
       xintervals = [];
       for (i = _p = 0; 0 <= x_size ? _p < x_size : _p > x_size; i = 0 <= x_size ? ++_p : --_p) {
@@ -288,7 +289,7 @@
       return this;
     },
     getLegendHTML: function(map) {
-      var cell_width, col, colum_from, div, from, gdrow, gdrow_labels, gridwidth, i, increment_in_em, j, label1_color_option, label1_position_option, label1_rotate_option, label1_rotate_value_option, label2_color_option, label2_position_option, label2_rotate_option, legend, legendObject, legendRowObject, legend_el, textControl, to, xintervalSize, xmin, xsize, yintervalSize, ymin, ysize, _i, _j, _k;
+      var cell_width, col, col_labels, colum_from, div, from, gdrow, gdrow_labels, gridwidth, horiz_x, i, increment_in_em, j, l, label1_color_option, label1_position_option, label1_rotate_option, label1_rotate_value_option, label2_color_option, label2_position_option, label2_rotate_option, legend, legendObject, legendRowObject, legend_el, row_lebel, textControl, to, xintervalSize, xmin, xsize, yintervalSize, ymin, ysize, _i, _j, _k, _l, _m;
       this.map = map;
       this._m = map;
       xmin = this.options.xmin;
@@ -306,35 +307,43 @@
       cell_width = this.options.cell_width;
       label1_rotate_option = 0;
       label1_position_option = this.options.steps * this.options.cell_width / 10.5;
-      label1_color_option = this.options.color1;
+      label1_color_option = this.options.color2;
       label2_rotate_option = -90;
       label1_rotate_value_option = -90;
       label2_position_option = this.options.steps * this.options.cell_width / 19;
-      label2_color_option = this.options.color2;
+      label2_color_option = this.options.color1;
       from = void 0;
       to = void 0;
       i = 0;
       increment_in_em = 3.5;
-      gdrow_labels = gdrow.slice(0, 4);
-      gdrow_labels.reverse();
-      legendObject.push("<span style=\"height:" + this.options.cell_width + "px;\">" + "<div style=\"width:" + (2 * this.options.cell_width) + ("px; position: relative; height: 0; text-align: left; color: " + label1_color_option + "; font-weight: bold;") + ("  -webkit-transform: translate(" + (increment_in_em - increment_in_em) + "em," + label1_position_option + "em); -moz-transform: translate(" + (increment_in_em - increment_in_em) + "em," + label1_position_option + "em); -o-transform: translate(" + (increment_in_em - increment_in_em) + "em," + label1_position_option + "em); -ms-transform: translate(" + (increment_in_em - increment_in_em) + "em," + label1_position_option + "em); transform: translate(" + (increment_in_em - increment_in_em) + "em," + label1_position_option + "em);\">") + ("<div style=\"-webkit-transform: rotate(" + label1_rotate_option + "deg); -moz-transform: rotate(" + label1_rotate_option + "deg);\">") + this.options.nameCols[1] + "</div></div></span>");
+      gdrow_labels = gdrow.slice(0, +this.options.steps + 1 || 9e9);
+      col_labels = [];
       for (col = _i = 0; 0 <= ysize ? _i < ysize : _i > ysize; col = 0 <= ysize ? ++_i : --_i) {
-        legendObject.push("<span style=\"height:" + this.options.cell_width + "px;\">" + "<div style=\"width:" + (2 * this.options.cell_width) + ("px; position: relative; height: 0; text-align: left; color: " + label1_color_option + ";") + ("  -webkit-transform: translate(" + ((col - 1 / 2) * increment_in_em) + "em,-6em); -moz-transform: translate(" + ((col - 1 / 2) * increment_in_em) + "em,-6em); -o-transform: translate(" + ((col - 1 / 2) * increment_in_em) + "em,-6em); -ms-transform: translate(" + ((col - 1 / 2) * increment_in_em) + "em," + (-cell_width / 7) + "em); -webkit-transform: translate(" + ((col - 1 / 2) * increment_in_em) + "em," + (-cell_width / 7) + "em); transform: translate(" + ((col - 1 / 2) * increment_in_em) + "em," + (-cell_width / 7) + "em);\">") + ("<div style=\"-webkit-transform: rotate(" + label1_rotate_value_option + "deg); -moz-transform: rotate(" + label1_rotate_value_option + "deg);\">") + gdrow_labels[col].y + "</div></div></span>");
+        col_labels.push(gdrow_labels[col]);
+      }
+      legendObject.push("<span style=\"height:" + this.options.cell_width + "px;\">" + "<div style=\"width:" + (2 * this.options.cell_width) + ("px; position: relative; height: 0; text-align: left; color: " + label1_color_option + "; font-weight: bold;") + ("  -webkit-transform: translate(" + (increment_in_em - increment_in_em) + "em," + label1_position_option + "em); -moz-transform: translate(" + (increment_in_em - increment_in_em) + "em," + label1_position_option + "em); -o-transform: translate(" + (increment_in_em - increment_in_em) + "em," + label1_position_option + "em); -ms-transform: translate(" + (increment_in_em - increment_in_em) + "em," + label1_position_option + "em); transform: translate(" + (increment_in_em - increment_in_em) + "em," + label1_position_option + "em);\">") + ("<div style=\"-webkit-transform: rotate(" + label1_rotate_option + "deg); -moz-transform: rotate(" + label1_rotate_option + "deg);\">") + this.options.nameCols[1] + "</div></div></span>");
+      for (col = _j = 0; 0 <= ysize ? _j < ysize : _j > ysize; col = 0 <= ysize ? ++_j : --_j) {
+        legendObject.push("<span style=\"height:" + this.options.cell_width + "px;\">" + "<div style=\"width:" + (2 * this.options.cell_width) + ("px; position: relative; height: 0; text-align: left; color: " + label1_color_option + ";") + ("  -webkit-transform: translate(" + ((col - 1 / 2) * increment_in_em) + "em,-6em); -moz-transform: translate(" + ((col - 1 / 2) * increment_in_em) + "em,-6em); -o-transform: translate(" + ((col - 1 / 2) * increment_in_em) + "em,-6em); -ms-transform: translate(" + ((col - 1 / 2) * increment_in_em) + "em," + (-cell_width / 7) + "em); -webkit-transform: translate(" + ((col - 1 / 2) * increment_in_em) + "em," + (-cell_width / 7) + "em); transform: translate(" + ((col - 1 / 2) * increment_in_em) + "em," + (-cell_width / 7) + "em);\">") + ("<div style=\"-webkit-transform: rotate(" + label1_rotate_value_option + "deg); -moz-transform: rotate(" + label1_rotate_value_option + "deg);\">") + col_labels[col].y + "</div></div></span>");
       }
       legendObject.push("<span style=\"height:" + this.options.cell_width + "px;\">" + "<div style=\"width:" + (2 * this.options.cell_width) + ("px; position: relative; height: 0; text-align: left;  color: " + label2_color_option + "; font-weight: bold;") + ("  -webkit-transform: translate(" + (-cell_width / 7) + "em," + label2_position_option + "em); -moz-transform: translate(" + (-cell_width / 7) + "em," + label2_position_option + "em); -o-transform: translate(" + (-cell_width / 7) + "em," + label2_position_option + "em); -ms-transform: translate(" + (-cell_width / 7) + "em," + label2_position_option + "em); transform: translate(" + (-cell_width / 7) + "em," + label2_position_option + "em); -webkit-transform: translate(" + (-cell_width / 7) + "em," + label2_position_option + "em);\">") + ("<div style=\"-webkit-transform: rotate(" + label2_rotate_option + "deg); -moz-transform: rotate(" + label2_rotate_option + "deg);\">") + this.options.nameCols[0] + "</div></div></span>");
-      for (j = _j = 0; 0 <= ysize ? _j < ysize : _j > ysize; j = 0 <= ysize ? ++_j : --_j) {
+      row_lebel = [];
+      for (l = _k = 0; 0 <= ysize ? _k < ysize : _k > ysize; l = 0 <= ysize ? ++_k : --_k) {
+        horiz_x = gdrow[l].x;
+        row_lebel.push(horiz_x);
+      }
+      row_lebel.reverse();
+      for (j = _l = 0; 0 <= ysize ? _l < ysize : _l > ysize; j = 0 <= ysize ? ++_l : --_l) {
         legendRowObject = [];
         from = gdrow[j].i * xintervalSize;
         colum_from = gdrow[j];
-        for (i = _k = 0; 0 <= xsize ? _k < xsize : _k > xsize; i = 0 <= xsize ? ++_k : --_k) {
+        for (i = _m = 0; 0 <= xsize ? _m < xsize : _m > xsize; i = 0 <= xsize ? ++_m : --_m) {
           legendRowObject.push("<span class=\"swatch\" style=\"background:" + gdrow[(j * xsize) + i].c + "; position: initial; display:block; float:left; height:" + this.options.cell_width + "px; width:" + this.options.cell_width + "px;\"" + "id=" + gdrow[(j * xsize) + i].i + "></span> ");
           legendRowObject.push("<span class=\"swatch-gutter\" style=\"background:none; position: relative; display:block; float:left; height:" + this.options.cell_width + "px; width:" + this.options.gutter_width + "px;\"" + "></span> ");
           i++;
         }
-        to = gdrow[j + 1].i * xintervalSize;
         gridwidth = this.options.gridwidth + this.options.row_label_width;
         legendObject.push("<li style=\"height:" + this.options.gutter_width + "px; position: relative; width:" + gridwidth + "px;" + "\">" + "</li>");
-        legendObject.push("<li style=\"height:" + this.options.cell_width + ("px;  color: " + label2_color_option + "; position: relative; width:") + gridwidth + "px;" + "\">" + legendRowObject.join("") + "\v " + "\v " + "\v " + "\v " + "\v " + gdrow[j].x + "</li>");
+        legendObject.push("<li style=\"height:" + this.options.cell_width + ("px;  color: " + label2_color_option + "; position: relative; width:") + gridwidth + "px;" + "\">" + legendRowObject.join("") + "\v " + "\v " + "\v " + "\v " + "\v " + row_lebel[j] + "</li>");
         this._legendObject.push(legendObject);
         j++;
       }

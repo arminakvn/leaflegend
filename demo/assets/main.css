@@ -4,8 +4,13 @@
  */
 #map {
 	position: inherit;
-	width: 100%;
+	width: 90%;
 	height: 600px;
+}
+#map2 {
+  position: inherit;
+  width: 90%;
+  height: 600px;
 }
 .leaflet-top.leaflet-right {
     border-top-left-radius: 4px;
