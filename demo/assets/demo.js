@@ -1,5 +1,5 @@
 (function() {
-  var cartoDataUrl, getStyle, leafleg, map, mousemove, mouseout, mouseover, onEachFeature, zoomToFeature;
+  var cartoDataUrl, closeTooltip, getStyle, jsondata, leafleg, legend, map, mousemove, mouseout, mouseover, onEachFeature, parse, popup, ready, statesLayer, tractsById, zoomToFeature;
 
   leafleg = L.leaflegend().color1("skyblue").color2("purple").steps(4).xsize(4).ysize(4).makeGrid();
 
@@ -62,7 +62,7 @@
 
   L.mapbox.accessToken = "pk.eyJ1IjoiYXJtaW5hdm4iLCJhIjoiSTFteE9EOCJ9.iDzgmNaITa0-q-H_jw1lJw";
 
-  map = L.mapbox.map("map").setView([42.62, -70.69], 12);
+  map = L.mapbox.map("map").setView([42.625183, -70.678424], 12);
 
   cartoDataUrl = "http://arminavn.cartodb.com/api/v2/sql?format=geojson&q=SELECT * FROM glsterparcels&api_key=9150413ca8fb81229459d0a5c2947620e42d0940";
 
@@ -76,31 +76,63 @@
     },
     success: (function(_this) {
       return function(data, textStatus, jqXHR) {
-        var closeTooltip, legend, popup, statesLayer;
+        var statesLayer;
         console.log(data);
-        statesLayer = L.geoJson(data, {
+        return statesLayer = L.geoJson(data, {
           style: getStyle,
           onEachFeature: onEachFeature
         }).addTo(map).bindPopup();
-        map.scrollWheelZoom.disable();
-        popup = new L.Popup({
-          autoPan: false
-        });
-        legend = L.control({
-          position: "bottomright"
-        });
-        legend.onAdd = function(map) {
-          var div, leg_div;
-          leafleg = L.leaflegend().color1("skyblue").color2("purple").nameLegCols(['Educational attainment', 'Population density']).steps(4).xsize(4).ysize(4).makeGrid();
-          div = void 0;
-          div = document.getElementById("leaflegend");
-          leg_div = leafleg.getLegendHTML(map);
-          return div;
-        };
-        legend.addTo(map);
-        return closeTooltip = void 0;
       };
     })(this)
   });
+
+  map.scrollWheelZoom.disable();
+
+  popup = new L.Popup({
+    autoPan: false
+  });
+
+  tractsById = d3.map();
+
+  console.log(tractsById);
+
+  parse = function(error, row) {};
+
+  ready = function(error, us) {
+    if (error) {
+      throw error;
+    }
+    console.log(us);
+  };
+
+  jsondata = omnivore.topojson('assets/tracts2010topo.json', {});
+
+  statesLayer = L.geoJson(null, {
+    style: getStyle,
+    onEachFeature: onEachFeature
+  }).addTo(map).bindPopup();
+
+  queue().defer(d3.csv, 'assets/boston-data.csv', function(d) {
+    return d;
+  }).await(parse);
+
+  legend = L.control({
+    position: "bottomright"
+  });
+
+  console.log(statesLayer);
+
+  legend.onAdd = function(map) {
+    var div, leg_div;
+    leafleg = L.leaflegend().color1("skyblue").color2("purple").nameLegCols(['Educational attainment', 'Population density']).steps(4).xsize(4).ysize(4).makeGrid();
+    div = void 0;
+    div = document.getElementById("leaflegend");
+    leg_div = leafleg.getLegendHTML(map);
+    return div;
+  };
+
+  legend.addTo(map);
+
+  closeTooltip = void 0;
 
 }).call(this);
